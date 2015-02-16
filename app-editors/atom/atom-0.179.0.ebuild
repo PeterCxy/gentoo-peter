@@ -30,8 +30,7 @@ DEPEND="
 RDEPEND="${DEPEND}"
 
 QA_PRESTRIPPED="
-	
-/usr/share/atom/resources/app/node_modules/symbols-view/vendor/ctags-linux
+	/usr/share/atom/resources/app/node_modules/symbols-view/vendor/ctags-linux
 "
 pkg_setup() {
 	python-any-r1_pkg_setup
@@ -45,8 +44,7 @@ src_unpack() {
 
 src_prepare() {
 	# Skip atom-shell & atom-shell-chromedriver download
-	sed -i -e "s/defaultTasks = \['download-atom-shell', 
-'download-atom-shell-chromedriver', /defaultTasks = [/g" \
+	sed -i -e "s/defaultTasks = \['download-atom-shell', 'download-atom-shell-chromedriver', /defaultTasks = [/g" \
 		./build/Gruntfile.coffee \
 		|| die "Failed to fix Gruntfile"
 
@@ -54,25 +52,20 @@ src_prepare() {
 	epatch "${FILESDIR}/0002-skip-atom-shell-copy.patch"
 
 	# Fix atom location guessing
-	sed -i -e 
-'s/ATOM_PATH="$USR_DIRECTORY\/share\/atom/ATOM_PATH="$USR_DIRECTORY\/../g' 
-\
+	sed -i -e 's/ATOM_PATH="$USR_DIRECTORY\/share\/atom/ATOM_PATH="$USR_DIRECTORY\/../g' \
 		./atom.sh \
 		|| die "Fail fixing atom-shell directory"
 
 	# Make bootstrap process more verbose
-	sed -i -e 's@node script/bootstrap@node script/bootstrap 
---no-quiet@g' \
+	sed -i -e 's@node script/bootstrap@node script/bootstrap --no-quiet@g' \
 		./script/build \
 		|| die "Fail fixing verbosity of script/build"
 }
 
 src_compile() {
-	./script/build --verbose --build-dir "${T}" || die "Failed to 
-compile"
+	./script/build --verbose --build-dir "${T}" || die "Failed to compile"
 
-	"${T}/Atom/resources/app/apm/bin/apm" rebuild || die "Failed to 
-rebuild native module"
+	"${T}/Atom/resources/app/apm/bin/apm" rebuild || die "Failed to rebuild native module"
 
 	# Setup python path to builtin npm
 	echo "python = $PYTHON" >> "${T}/Atom/resources/app/apm/.apmrc"
@@ -98,14 +91,11 @@ src_install() {
 	fperms +x /usr/share/${PN}/resources/app/atom.sh
 	fperms +x /usr/share/${PN}/resources/app/apm/bin/apm
 	fperms +x /usr/share/${PN}/resources/app/apm/bin/node
-	fperms +x 
-/usr/share/${PN}/resources/app/apm/node_modules/npm/bin/node-gyp-bin/node-gyp
+	fperms +x /usr/share/${PN}/resources/app/apm/node_modules/npm/bin/node-gyp-bin/node-gyp
 
 	# Symlinking to /usr/bin
 	dosym ../share/${PN}/resources/app/atom.sh /usr/bin/atom
 	dosym ../share/${PN}/resources/app/apm/bin/apm /usr/bin/apm
 
-	make_desktop_entry "/usr/bin/atom %U" "Atom" "atom" 
-"GNOME;GTK;Utility;TextEditor;Development;" 
-"MimeType=text/plain;\nStartupNotify=true\nStartupWMClass=Atom"
+	make_desktop_entry "/usr/bin/atom %U" "Atom" "atom" "GNOME;GTK;Utility;TextEditor;Development;" "MimeType=text/plain;\nStartupNotify=true\nStartupWMClass=Atom"
 }
