@@ -62,8 +62,7 @@ src_prepare() {
 	einfo "Bootstrap atom-shell source"
 
 	# Fix util.execute function to be more verbose
-	sed -i -e 's/def execute(argv):/def execute(argv):\n  print "   
-- bootstrap: " + " ".join(argv)/g' \
+	sed -i -e 's/def execute(argv):/def execute(argv):\n  print "   - bootstrap: " + " ".join(argv)/g' \
 	  ./script/lib/util.py \
 	  || die "Failed to sed lib/util.py"
 
