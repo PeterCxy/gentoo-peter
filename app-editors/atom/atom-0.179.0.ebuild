@@ -41,8 +41,8 @@ S=${WORKDIR}
 
 src_install(){
 	dobin ${S}/usr/bin/atom
-	dobin ${S}/usr/bin/apm
 	insinto /usr
 	insopts -m0755
 	doins -r ${S}/usr/share
+	dosym /usr/share/atom/resources/app/apm/bin/apm /usr/bin/apm
 }
