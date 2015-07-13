@@ -21,7 +21,6 @@ RESTRICT="mirror"
 
 DEPEND="
 	${PYTHON_DEPS}
-	dev-vcs/git
 	>=gnome-base/gconf-3.2.6-r3
 	x11-libs/gtk+:2
 	virtual/libudev
@@ -32,7 +31,6 @@ DEPEND="
 	gnome-base/libgnome-keyring
 	gnome-base/gvfs
 	x11-misc/xdg-utils
-	net-libs/nodejs
 "
 RDEPEND="${DEPEND}"
 
