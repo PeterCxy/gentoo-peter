@@ -20,3 +20,10 @@ DEPEND="
 	net-libs/gnutls
 "
 RDEPEND="${DEPEND}"
+
+src_install() {
+	default
+
+	insinto "/etc/ocserv"
+	newins "${S}/doc/sample.config" config
+}
