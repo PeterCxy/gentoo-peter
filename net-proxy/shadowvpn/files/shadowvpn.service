@@ -1,0 +1,12 @@
+[Unit]
+Description=A lightweight VPN service
+After=network.target
+
+[Service]
+Type=forking
+User=root
+ExecStart=/usr/bin/shadowvpn -c /etc/shadowvpn/%i.conf -s start
+ExecStop=/usr/bin/shadowvpn -c /etc/shadowvpn/%i.conf -s stop
+
+[Install]
+WantedBy=multi-user.target
