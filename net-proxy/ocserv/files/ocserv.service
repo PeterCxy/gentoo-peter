@@ -1,0 +1,11 @@
+[Unit]
+Description=Free server for AnyConnect
+After=network.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/sbin/ocserv -c /etc/ocserv/config -d 1 -f
+
+[Install]
+WantedBy=multi-user.target
