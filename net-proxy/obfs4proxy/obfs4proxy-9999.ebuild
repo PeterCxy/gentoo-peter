@@ -29,7 +29,7 @@ src_unpack(){
 }
 
 src_compile(){
-	GOPATH=${WORKDIR} go get -v -work git.torproject.org/pluggable-transports/obfs4.git/obfs4proxy
+	GOPATH=${WORKDIR} go get -v -work github.com/PeterCxy/obfs4/obfs4proxy
 }
 
 src_install(){
